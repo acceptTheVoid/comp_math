@@ -1,0 +1,9 @@
+[package]
+name = "comp_math"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+csv = "1.2.1"
+prettytable = "0.10.0"
+rand = "0.8.5"
