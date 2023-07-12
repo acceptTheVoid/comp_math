@@ -1,4 +1,4 @@
-use std::rc::Rc;
+use std::{rc::Rc, f64::consts::PI};
 
 use comp_math::math::{
     factorial::Fact,
@@ -130,11 +130,14 @@ impl<Func: Fn(f64) -> f64> InterpolationFormulas<Func> {
 }
 
 fn main() {
-    let func = Rc::new(|x: f64| x.ln());
-    let func = Function::new(func, 3_f64..4_f64);
-    let mut interpol = InterpolationFormulas::new(50, func);
-    let x = 3.78324;
-    let res = interpol.interpolate(x).unwrap();
-    println!("{} {}", x.ln(), res);
-    println!("{}%", (x.ln() - res) / res * 100.);
+    let func = Rc::new(|x: f64| x.powi(2) - (x * PI).sin());
+    let func = Function::new(Rc::clone(&func), 0.4_f64..0.9_f64);
+    let mut interpol = InterpolationFormulas::new(50, func.clone());
+    let points = [0.53, 0.43, 0.86, 0.67];
+    for x in points {
+        let res = interpol.interpolate(x).unwrap();
+        println!("Point: {x}");
+        println!("Function: {};\nCalculated: {res}", func(x));
+        println!("Err: {}%\n", ((func(x) - res) / res * 100.).abs());
+    }
 }
