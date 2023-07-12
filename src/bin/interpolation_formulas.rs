@@ -108,7 +108,7 @@ impl<Func: Fn(f64) -> f64> InterpolationFormulas<Func> {
         let (a, b) = self.func.domain_tuple();
 
         if !self.func.domain().contains(&x) {
-            return Err("нахуй иди");
+            return Err("la cringe")
         }
 
         let h = (b - a) / (n - 1) as f64;
